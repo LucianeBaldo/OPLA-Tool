@@ -610,7 +610,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel9" pref="1064" max="32767" attributes="0"/>
+                              <Component id="jPanel9" pref="1068" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel10" min="-2" pref="257" max="-2" attributes="0"/>
                           </Group>
@@ -939,7 +939,7 @@
                               <Component id="ckAV" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckLLC" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="90" max="32767" attributes="0"/>
+                          <EmptySpace pref="83" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1104,7 +1104,6 @@
                                   <Component id="ckMutation" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="ckCrossover" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="223" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1225,15 +1224,20 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ckFeatureDrivenMutation" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckMoveMethodMutation" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckAddClassMutation" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ckMoveAttributeMutation" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckAddManagerClassMutation" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckMoveOperationMutation" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ckFeatureDrivenMutation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ckMoveMethodMutation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ckAddClassMutation" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ckMoveAttributeMutation" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ckAddManagerClassMutation" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ckMoveOperationMutation" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="ckFeatureInteractionModularizationMutation" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1257,6 +1261,8 @@
                               <Component id="ckAddClassMutation" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckMoveAttributeMutation" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="ckFeatureInteractionModularizationMutation" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -1285,6 +1291,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckAddClassMutationItemStateChanged"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckAddClassMutationActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckMoveOperationMutation">
@@ -1309,6 +1316,16 @@
                   </Properties>
                   <Events>
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMoveAttributeMutationItemStateChanged"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckMoveAttributeMutationActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckFeatureInteractionModularizationMutation">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Feature-interaction Modularization"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckFeatureInteractionModularizationMutationItemStateChanged"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckFeatureInteractionModularizationMutationActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1425,7 +1442,7 @@
                                   <Component id="tfOutputDirectory" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="141" max="32767" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1542,7 +1559,7 @@
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbClusteringAlgorithm" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="132" max="32767" attributes="0"/>
+                          <EmptySpace pref="145" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

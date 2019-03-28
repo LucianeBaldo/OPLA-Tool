@@ -409,6 +409,7 @@ public class Principal extends AbstractPrincipalJFrame {
         ckMoveOperationMutation = new javax.swing.JCheckBox();
         ckAddManagerClassMutation = new javax.swing.JCheckBox();
         ckMoveAttributeMutation = new javax.swing.JCheckBox();
+        ckFeatureInteractionModularizationMutation = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         tfInputArchitecturePath = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -1113,7 +1114,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckAV)
                     .addComponent(ckLLC))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -1170,8 +1171,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addGroup(panelOperatorsLayout.createSequentialGroup()
                         .addComponent(ckMutation)
                         .addGap(18, 18, 18)
-                        .addComponent(ckCrossover)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ckCrossover))
                     .addGroup(panelOperatorsLayout.createSequentialGroup()
                         .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelOperatorOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1220,6 +1220,11 @@ public class Principal extends AbstractPrincipalJFrame {
                 ckAddClassMutationItemStateChanged(evt);
             }
         });
+        ckAddClassMutation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAddClassMutationActionPerformed(evt);
+            }
+        });
 
         ckMoveOperationMutation.setText("Move Operation Mutation");
         ckMoveOperationMutation.addItemListener(new java.awt.event.ItemListener() {
@@ -1241,6 +1246,23 @@ public class Principal extends AbstractPrincipalJFrame {
                 ckMoveAttributeMutationItemStateChanged(evt);
             }
         });
+        ckMoveAttributeMutation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckMoveAttributeMutationActionPerformed(evt);
+            }
+        });
+
+        ckFeatureInteractionModularizationMutation.setText("Feature-interaction Modularization");
+        ckFeatureInteractionModularizationMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckFeatureInteractionModularizationMutationItemStateChanged(evt);
+            }
+        });
+        ckFeatureInteractionModularizationMutation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckFeatureInteractionModularizationMutationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMutationsLayout = new javax.swing.GroupLayout(panelMutations);
         panelMutations.setLayout(panelMutationsLayout);
@@ -1249,14 +1271,17 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(panelMutationsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMutationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckFeatureDrivenMutation)
-                    .addComponent(ckMoveMethodMutation)
-                    .addComponent(ckAddClassMutation))
-                .addGap(64, 64, 64)
-                .addGroup(panelMutationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckMoveAttributeMutation)
-                    .addComponent(ckAddManagerClassMutation)
-                    .addComponent(ckMoveOperationMutation))
+                    .addGroup(panelMutationsLayout.createSequentialGroup()
+                        .addGroup(panelMutationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ckFeatureDrivenMutation)
+                            .addComponent(ckMoveMethodMutation)
+                            .addComponent(ckAddClassMutation))
+                        .addGap(64, 64, 64)
+                        .addGroup(panelMutationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ckMoveAttributeMutation)
+                            .addComponent(ckAddManagerClassMutation)
+                            .addComponent(ckMoveOperationMutation)))
+                    .addComponent(ckFeatureInteractionModularizationMutation))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelMutationsLayout.setVerticalGroup(
@@ -1274,6 +1299,8 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(panelMutationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckAddClassMutation)
                     .addComponent(ckMoveAttributeMutation))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ckFeatureInteractionModularizationMutation)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1368,7 +1395,7 @@ public class Principal extends AbstractPrincipalJFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfOutputDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1447,7 +1474,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbClusteringAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1460,7 +1487,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -2665,6 +2692,25 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }//GEN-LAST:event_cbRScriptActionPerformed
 
+    private void ckFeatureInteractionModularizationMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckFeatureInteractionModularizationMutationItemStateChanged
+        if (ckFeatureInteractionModularizationMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.FEATURE_INTERACTION_MODULARIZATION_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.FEATURE_INTERACTION_MODULARIZATION_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckFeatureInteractionModularizationMutationItemStateChanged
+
+    private void ckFeatureInteractionModularizationMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureInteractionModularizationMutationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckFeatureInteractionModularizationMutationActionPerformed
+
+    private void ckMoveAttributeMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckMoveAttributeMutationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckMoveAttributeMutationActionPerformed
+
+    private void ckAddClassMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAddClassMutationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckAddClassMutationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;
     private javax.swing.JButton btBrowserFeatureProfile;
@@ -2708,6 +2754,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckFeatureDifusion;
     private javax.swing.JCheckBox ckFeatureDriven;
     private javax.swing.JCheckBox ckFeatureDrivenMutation;
+    private javax.swing.JCheckBox ckFeatureInteractionModularizationMutation;
     private javax.swing.JCheckBox ckFeatureInterlacing;
     private javax.swing.JCheckBox ckLLC;
     private javax.swing.JCheckBox ckMediator;
