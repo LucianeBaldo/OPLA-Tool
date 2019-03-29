@@ -629,22 +629,19 @@ public class PLAFeatureMutation extends Mutation {
 
                                 for(Attribute attr: c.getAllAttributes()) {
                                     if (attr.getAllConcerns().contains(concern)) {
-                                        newClass.getAllAttributes().add(attr);
-                                        c.getAllAttributes().remove(attr);
+                                        c.moveAttributeToClass(attr, newClass);
                                     }
                                 }
 
                                 for (Method method : c.getAllMethods()) {
                                     if (method.getAllConcerns().contains(concern)) {
-                                        newClass.getAllMethods().add(method);
-                                        c.getAllMethods().remove(method);
+                                        c.moveMethodToClass(method, newClass);
                                     }
                                 }
 
                                 for (Method method : c.getAllAbstractMethods()) {
                                     if (method.getAllConcerns().contains(concern)) {
-                                        newClass.getAllAbstractMethods().add(method);
-                                        c.getAllMethods().remove(method);
+                                        c.moveMethodToClass(method, newClass);
                                     }
                                 }
 
@@ -658,7 +655,7 @@ public class PLAFeatureMutation extends Mutation {
 //                              //  Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
                                 c.setRelationshipHolder(relationshipsHolder);
 
-                                arch.getAllClasses().add(newClass);
+                                arch.addExternalClass(newClass);
 
                                 if (searchForGeneralizations(c)) {
                                     for (Relationship relationship : c.getRelationships()) {
