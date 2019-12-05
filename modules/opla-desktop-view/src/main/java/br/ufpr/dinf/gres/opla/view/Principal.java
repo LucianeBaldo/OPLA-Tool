@@ -1026,7 +1026,7 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
-        ckLLC.setText("LLC");
+        ckLLC.setText("LCC");
         ckLLC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ckLLCActionPerformed(evt);
@@ -2390,7 +2390,9 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_ckMutationActionPerformed
 
     private void ckLLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLCActionPerformed
-        // TODO add your handling code here:
+        System.out.println("LCC");
+        final String metric = Metrics.LCC.getName();
+        addToMetrics(ckLLC, metric);
     }//GEN-LAST:event_ckLLCActionPerformed
 
     private void ckAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAVActionPerformed
