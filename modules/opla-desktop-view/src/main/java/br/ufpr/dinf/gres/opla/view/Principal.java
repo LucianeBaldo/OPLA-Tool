@@ -1052,7 +1052,7 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
-        ckLLC.setText("LCC");
+        ckLLC.setText("LLC");
         ckLLC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ckLLCActionPerformed(evt);
@@ -2392,9 +2392,7 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_ckMutationActionPerformed
 
     private void ckLLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLCActionPerformed
-        System.out.println("LCC");
-        final String metric = Metrics.LCC.getName();
-        addToMetrics(ckLLC, metric);
+        // TODO add your handling code here:
     }//GEN-LAST:event_ckLLCActionPerformed
 
     private void ckAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAVActionPerformed
@@ -2756,13 +2754,13 @@ public class Principal extends AbstractPrincipalJFrame {
     private void ckCDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCDAActionPerformed
         System.out.println("Feature Driven");
         String metric = Metrics.CDA.getName();
-        addToMetrics(ckCDA, metric);
+        addToMetrics(ckFeatureDriven, metric);
     }//GEN-LAST:event_ckCDAActionPerformed
 
     private void ckCIBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCIBActionPerformed
         System.out.println("Feature Driven");
         String metric = Metrics.CIB.getName();
-        addToMetrics(ckCIB, metric);
+        addToMetrics(ckFeatureDriven, metric);
     }//GEN-LAST:event_ckCIBActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
