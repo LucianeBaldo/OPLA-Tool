@@ -1,31 +1,26 @@
 package jmetal4.operators.mutation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import arquitetura.representation.*;
-import arquitetura.representation.Class;
-import arquitetura.representation.Package;
-import arquitetura.representation.relationship.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
+import arquitetura.representation.*;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 import jmetal4.core.Solution;
 import jmetal4.problems.OPLA;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 import jmetal4.util.PseudoRandom;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class PLAFeatureMutation extends Mutation {
 
@@ -104,6 +99,7 @@ public class PLAFeatureMutation extends Mutation {
         }
         return false;
     }
+
     // --------------------------------------------------------------------------
     // m��todo para verificar se algum dos relacionamentos recebidos ��
     // generaliza����o
@@ -628,16 +624,14 @@ public class PLAFeatureMutation extends Mutation {
                         .equals("class " + Architecture.ARCHITECTURE_TYPE)) {
 
                     final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
-                    for (Class c : arch.getAllModifiableClasses()) {
-                        applyToClass(arch, c);
-                    }
-
-                    for (Interface c : arch.getAllModifiableInterfaces()) {
-                        applyToInterface(arch, c);
-                    }
-
-
+//                    for (Class c : arch.getAllModifiableClasses()) {
+//                        applyToClass(arch, c);
+//                    }
+//                    for (Interface c : arch.getAllModifiableInterfaces()) {
+//                        applyToInterface(arch, c);
+//                    }
+                    applyToClass(arch, randomObject(arch.getAllModifiableClasses()));
+                    applyToInterface(arch, randomObject(arch.getAllModifiableInterfaces()));
                 } else {
                     Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}",
                             solution.getDecisionVariables()[0].getVariableType());
@@ -656,7 +650,7 @@ public class PLAFeatureMutation extends Mutation {
         if (allConcerns.size() > 1) {
             List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(c)).collect(Collectors.toList());
             Package aPackage = collect.size() > 0 ? collect.get(0) : null;
-            if (VerifyIfIsHomonimo(c)) return;
+            if (VerifyIfIsHomonimo(c) || aPackage == null) return;
 
             // Passo 2
             Concern major = getMajorConcern(c);
@@ -664,23 +658,24 @@ public class PLAFeatureMutation extends Mutation {
 //                            Passo 3
             for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
                 Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, c);
-                arch.addExternalClass(newClass);
+                if (!arch.getAllClasses().contains(newClass)) {
+                    arch.addExternalClass(newClass);
+                }
 
 //                                Passo 4
-//                Associação bidirecional
                 RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
                 AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
                 relationshipsHolder.addRelationship(associationRelationship);
                 c.setRelationshipHolder(relationshipsHolder);
                 arch.addRelationship(associationRelationship);
 
-//                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
-//                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
-//                relationshipsHolder2.addRelationship(associationRelationship2);
-//                newClass.setRelationshipHolder(relationshipsHolder2);
-//                arch.addRelationship(associationRelationship2);
+                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
+                relationshipsHolder2.addRelationship(associationRelationship2);
+                newClass.setRelationshipHolder(relationshipsHolder2);
+                arch.addRelationship(associationRelationship2);
 
-                applyToClass(arch, c);
+//                applyToClass(arch, c);
 
             }
         }
@@ -716,17 +711,21 @@ public class PLAFeatureMutation extends Mutation {
     }
 
     private void applyToInterface(Architecture arch, Interface c) throws ConcernNotFoundException {
+        System.out.println("----------------->>> " + c.getName());
         Set<Concern> allConcerns = c.getAllConcerns();
         if (allConcerns.size() > 1) {
             List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllInterfaces().contains(c)).collect(Collectors.toList());
             Package aPackage = collect.size() > 0 ? collect.get(0) : null;
+            if (aPackage == null) return;
 
             // Passo 2
             Concern major = getMajorConcern(c);
 
             for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
                 Interface newClass = findOrCreateInterfaceWithConcernWithConcernName(aPackage, concern, c);
-                arch.addExternalInterface(newClass);
+                if (!arch.getAllInterfaces().contains(newClass)) {
+                    arch.addExternalInterface(newClass);
+                }
 
 //                                Passo 4
                 RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
@@ -740,8 +739,7 @@ public class PLAFeatureMutation extends Mutation {
                 relationshipsHolder2.addRelationship(associationRelationship2);
                 newClass.setRelationshipHolder(relationshipsHolder2);
                 arch.addRelationship(associationRelationship2);
-                applyToInterface(arch, c);
-
+//                applyToInterface(arch, c);
             }
         }
     }
@@ -942,10 +940,9 @@ public class PLAFeatureMutation extends Mutation {
 
     // add por ��dipo
     private Class findOrCreateClassWithConcernWithConcernName(Package targetComp, Concern concern, arquitetura.representation.Class origin) throws ConcernNotFoundException {
-        origin.removeConcern(concern.getName());
-        Set<Attribute> attrs = origin.getAllAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
-        Set<Method> methods = origin.getAllMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
-        Set<Method> absmethods = origin.getAllAbstractMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Attribute> attrs = origin.getAllModifiableAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> methods = origin.getAllModifiableMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> absmethods = origin.getAllModifiableAbstractMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
 
         Class targetClass = targetComp.createClass(origin.getName() + concern.getName(), false);
         for (Attribute attr : attrs) {
@@ -960,20 +957,21 @@ public class PLAFeatureMutation extends Mutation {
             targetClass.addExternalMethod(method);
             origin.removeMethod(method);
         }
+        origin.removeConcern(concern.getName());
         targetClass.addConcern(concern.getName());
         return targetClass;
     }
 
     // add por ��dipo
     private Interface findOrCreateInterfaceWithConcernWithConcernName(Package targetComp, Concern concern, arquitetura.representation.Interface origin) throws ConcernNotFoundException {
-        origin.removeConcern(concern.getName());
-        Set<Method> operations = origin.getOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> operations = origin.getModifiableOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
 
         Interface targetClass = targetComp.createInterface(origin.getName() + concern.getName());
         for (Method method : operations) {
-            targetClass.addExternalOperation(method);
             origin.removeOperation(method);
+            targetClass.addExternalOperation(method);
         }
+        origin.removeConcern(concern.getName());
         targetClass.addConcern(concern.getName());
         return targetClass;
     }
@@ -1278,6 +1276,11 @@ public class PLAFeatureMutation extends Mutation {
             object = allObjects.get(key);
         }
         return object;
+    }
+
+    // -------------------------------------------------------------------------------------------------
+    public <T> T randomObject(Set<T> allObjects) {
+        return randomObject(new ArrayList<>(allObjects));
     }
 
     // -------------------------------------------------------------------------------------------------
